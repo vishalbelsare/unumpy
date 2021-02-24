@@ -3,7 +3,7 @@ channels:
   - pytorch
   - conda-forge
 dependencies:
-  - python=3.7
+  - python <3.9
   - pip
   - sphinx
   - sphinx_rtd_theme
@@ -16,6 +16,5 @@ dependencies:
   - sparse
   - doc8
   - black
-  - pip:
-    - pytest-mypy
-    - pytest-black
+  - pytest-mypy
+  - pytest-black

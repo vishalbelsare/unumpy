@@ -391,7 +391,10 @@ def set_state(state):
 def _integers_argreplacer(args, kwargs, dispatchables):
     def replacer(self, low, high=None, size=None, dtype=int, endpoint=False):
         return (
-            (self, dispatchables[0],),
+            (
+                self,
+                dispatchables[0],
+            ),
             dict(
                 high=dispatchables[1],
                 size=size,
@@ -406,7 +409,10 @@ def _integers_argreplacer(args, kwargs, dispatchables):
 def _Generator_choice_argreplacer(args, kwargs, dispatchables):
     def replacer(self, a, size=None, replace=True, p=None, axis=0, shuffle=True):
         return (
-            (self, dispatchables[0],),
+            (
+                self,
+                dispatchables[0],
+            ),
             dict(
                 size=size,
                 replace=replace,
@@ -428,7 +434,10 @@ def _Generator_exponential_argreplacer(args, kwargs, dispatchables):
 
 def _Generator_gamma_argreplacer(args, kwargs, dispatchables):
     def replacer(self, shape, scale=1.0, size=None):
-        return (self, dispatchables[0],), dict(scale=dispatchables[1], size=size)
+        return (
+            self,
+            dispatchables[0],
+        ), dict(scale=dispatchables[1], size=size)
 
     return replacer(*args, **kwargs)
 

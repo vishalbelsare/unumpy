@@ -26,3 +26,4 @@ build/
 dask-worker-space/
 *.ipynb
 default.profraw
+.coverage.*

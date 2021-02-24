@@ -5,6 +5,7 @@ from unumpy import ufunc, ufunc_list, ndarray, dtype
 from unumpy.random import RandomState, Generator
 import unumpy
 import functools
+from collections.abc import Iterable
 
 from typing import Dict
 
@@ -92,12 +93,22 @@ def __ua_convert__(value, dispatch_type, coerce):
             if not isinstance(value, sparse.SparseArray):
                 return NotImplemented
 
-        if isinstance(value, sparse.SparseArray):
-            return value
-
-        return sparse.as_coo(np.asarray(value))
+        return convert_ndarray(value)
 
     return value
+
+
+def convert_ndarray(value):
+    if isinstance(value, sparse.SparseArray):
+        return value
+
+    if isinstance(value, np.ndarray):
+        return sparse.COO(value)
+
+    try:
+        return sparse.COO(np.asarray(value))
+    except RuntimeError:
+        return sparse.stack([convert_ndarray(v) for v in value])
 
 
 def replace_self(func):

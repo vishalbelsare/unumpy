@@ -30,7 +30,7 @@ LIST_BACKENDS = [
     (DaskBackend(), (da.Array, onp.generic, da.ufunc.ufunc, da.random.RandomState)),
     (
         SparseBackend,
-        (sparse.SparseArray, onp.ndarray, onp.generic, onp.random.mtrand.RandomState),
+        (sparse.SparseArray, onp.ndarray, onp.generic, onp.random.RandomState),
     ),
     pytest.param(
         (TorchBackend, (torch.Tensor,)),
@@ -806,7 +806,10 @@ def test_functional(backend, method, args, kwargs):
     ],
 )
 def test_class_getitem(backend, method, args):
-    backend, types, = backend
+    (
+        backend,
+        types,
+    ) = backend
     try:
         with ua.set_backend(backend, coerce=True):
             ret = method[args]
